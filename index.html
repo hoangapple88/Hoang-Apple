@@ -369,14 +369,20 @@
         }
 
         [data-theme="dark"] .video-note-box {
-            color: #000000; /* Ép cứng màu đen theo đúng yêu cầu */
+            color: #000000;
             background: #ffffff;
         }
 
         .note-title {
             font-weight: 700;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             font-size: 16px;
+        }
+
+        .note-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
         }
 
         /* Hỗ trợ - QR RGB Box */
@@ -583,12 +589,12 @@
             100% { transform: translateY(-115vh) rotate(12deg); opacity: 0; }
         }
 
-        /* CHỈNH SỬA MÂY TO HƠN VÀ NẰM DƯỚI CHÂN FOOTER */
+        /* MÂY DƯỚI FOOTER */
         .fixed-bottom-clouds-art {
             position: fixed;
             bottom: -20px; left: 0; width: 100vw; height: 110px;
             pointer-events: none;
-            z-index: 10; /* Nằm dưới Footer (Footer z-index 200) */
+            z-index: 10;
             display: none;
         }
 
@@ -641,7 +647,7 @@
         </div>
     </div>
 
-    <!-- MÂY NẰM DƯỚI FOOTER (ĐÃ CHỈNH SỬA TO & ĐẸP HƠN) -->
+    <!-- MÂY NẰM DƯỚI FOOTER -->
     <div class="fixed-bottom-clouds-art">
         <svg class="cloud-svg-layer" viewBox="0 0 1200 120" preserveAspectRatio="none">
             <path d="M0,120 L0,30 Q90,0 200,35 Q310,5 420,30 Q540,0 660,25 Q780,5 900,35 Q1020,0 1120,25 Q1170,15 1200,40 L1200,120 Z"></path>
@@ -722,10 +728,13 @@
                 </div>
             </div>
 
-            <!-- NỘI DUNG LƯU Ý BÊN DƯỚI VIDEO -->
+            <!-- NỘI DUNG LƯU Ý MỚI ĐÃ CẬP NHẬT -->
             <div class="video-note-box">
                 <div class="note-title">Lưu ý:</div>
-                <div>Sau khi admin báo đã gửi máy đi cho bạn, hãy nhớ lưu lại <span class="text-red" style="font-weight: 700;">mã vận đơn</span> để theo dõi quá trình vận chuyển nhé!</div>
+                <div class="note-list">
+                    <div>• Khi đóng gói gửi máy cho admin hãy nhớ quay video quá trình đóng gói để tránh trường hợp hàng bị tráo/vỡ/hư hỏng… nhé!</div>
+                    <div>• Sau khi admin báo đã gửi máy đi cho bạn, hãy nhớ lưu lại <span class="text-red" style="font-weight: 700;">mã vận đơn</span> để theo dõi quá trình vận chuyển nhé!</div>
+                </div>
             </div>
         </section>
 
