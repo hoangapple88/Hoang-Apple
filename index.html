@@ -9,29 +9,27 @@
            1. CẤU HÌNH BIẾN & NỀN CARO (GRID TEXTURE)
            ========================================== */
         :root {
-            --bg-color: #f7f9fc;
+            --bg-color: #f6f8fc;
             --text-color: #1d1d1f;
-            --grid-color: rgba(0, 0, 0, 0.06);
+            --grid-color: rgba(0, 0, 0, 0.05);
             --header-bg: rgba(255, 255, 255, 0.85);
             --card-bg: #ffffff;
             --menu-bg: #ffffff;
-            --popover-bg: #ffffff;
+            --popover-bg: rgba(255, 255, 255, 0.95);
             --btn-bg: #e5e5ea;
-            --btn-hover: #d1d1d6;
             --accent-color: #007aff;
-            --shadow-color: rgba(0, 0, 0, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.08);
         }
 
         [data-theme="dark"] {
-            --bg-color: #0d0d0f;
+            --bg-color: #0b0b0e;
             --text-color: #f5f5f7;
-            --grid-color: rgba(255, 255, 255, 0.05);
-            --header-bg: rgba(22, 22, 24, 0.85);
+            --grid-color: rgba(255, 255, 255, 0.04);
+            --header-bg: rgba(18, 18, 20, 0.85);
             --card-bg: #1c1c1e;
             --menu-bg: #161618;
-            --popover-bg: #2c2c2e;
+            --popover-bg: rgba(28, 28, 30, 0.95);
             --btn-bg: #2c2c2e;
-            --btn-hover: #3a3a3c;
             --accent-color: #0a84ff;
             --shadow-color: rgba(0, 0, 0, 0.5);
         }
@@ -40,8 +38,8 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
 
         body {
@@ -51,7 +49,6 @@
             display: flex;
             flex-direction: column;
             position: relative;
-            /* Pattern Caro sang trọng */
             background-image: 
                 linear-gradient(var(--grid-color) 1px, transparent 1px),
                 linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
@@ -60,13 +57,13 @@
         }
 
         /* ==========================================
-           2. HEADER, LOGO (PHÓNG TO) & DROPDOWN MENU
+           2. HEADER, LOGO & NÚT MẶT TRĂNG PURE CSS
            ========================================== */
         header {
             position: sticky;
             top: 0;
             width: 100%;
-            height: 70px; /* Tăng chiều cao header */
+            height: 70px;
             background: var(--header-bg);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -74,17 +71,17 @@
             align-items: center;
             justify-content: space-between;
             padding: 0 20px;
-            z-index: 500; /* Luôn nổi trên các lớp trang trí */
+            z-index: 500;
             border-bottom: 1px solid var(--grid-color);
         }
 
-        /* Menu Button Bên Trái */
+        /* Nút Hamburger ≡ */
         .header-btn {
             background: var(--btn-bg);
             border: none;
             color: var(--text-color);
-            width: 42px;
-            height: 42px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -92,81 +89,110 @@
             font-size: 22px;
             cursor: pointer;
             user-select: none;
-            transition: transform 0.2s ease, background 0.2s ease;
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .header-btn:hover {
-            background: var(--btn-hover);
-            transform: scale(1.05);
+        .header-btn:active {
+            transform: scale(0.9);
         }
 
-        /* Logo Trung Tâm - Phóng To */
+        /* VẼ MẶT TRĂNG BẰNG PURE CSS (KHÔNG NÚT ICON) */
+        .moon-icon-css {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            box-shadow: -4px 3px 0 0px var(--text-color);
+            transform: rotate(-15deg);
+            transition: transform 0.4s ease, box-shadow 0.3s ease;
+        }
+
+        .header-btn:hover .moon-icon-css {
+            transform: rotate(15deg) scale(1.1);
+            box-shadow: -4px 3px 0 0px #f1c40f;
+        }
+
+        /* Logo Trung Tâm */
         .logo-container {
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .logo-img {
-            max-height: 52px; /* Tăng kích thước logo từ 40px lên 52px */
+            max-height: 52px;
             width: auto;
             object-fit: contain;
             transition: transform 0.3s ease;
         }
 
         .logo-img:hover {
-            transform: scale(1.03);
+            transform: scale(1.05);
         }
 
-        /* Sun Mode Control Menu (Popover Dropdown) */
-        .settings-dropdown-wrapper {
-            position: relative;
-        }
+        /* ==========================================
+           3. POPOVER MENU CHỌN MODE MỚI
+           ========================================== */
+        .settings-dropdown-wrapper { position: relative; }
 
         .popover-menu {
             position: absolute;
-            top: 52px;
+            top: 56px;
             right: 0;
-            width: 260px;
+            width: 220px;
             background: var(--popover-bg);
             border: 1px solid var(--grid-color);
-            border-radius: 16px;
-            padding: 16px;
-            box-shadow: 0 10px 30px var(--shadow-color);
+            border-radius: 18px;
+            padding: 10px;
+            box-shadow: 0 15px 35px var(--shadow-color);
             display: none;
             flex-direction: column;
-            gap: 14px;
+            gap: 4px;
             z-index: 501;
-            backdrop-filter: blur(10px);
-            animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            backdrop-filter: blur(15px);
+            animation: popIn 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
         @keyframes popIn {
-            from { opacity: 0; transform: translateY(-8px) scale(0.95); }
+            from { opacity: 0; transform: translateY(-10px) scale(0.9); }
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        .popover-menu.show {
-            display: flex;
-        }
+        .popover-menu.show { display: flex; }
 
-        .setting-item {
+        /* Option Item trong Popover */
+        .mode-option {
+            padding: 12px 14px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            font-size: 14px;
-            font-weight: 500;
+            transition: background 0.2s ease;
         }
 
-        /* Toggle Switch Custom */
+        .mode-option:hover {
+            background: rgba(0, 122, 255, 0.08);
+        }
+
+        .mode-option.selected {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .popover-divider {
+            height: 1px;
+            background: var(--grid-color);
+            margin: 4px 0;
+        }
+
+        /* Switch cho Trung Thu */
         .switch {
             position: relative;
             display: inline-block;
-            width: 46px;
-            height: 26px;
+            width: 42px;
+            height: 24px;
         }
 
         .switch input { opacity: 0; width: 0; height: 0; }
@@ -175,16 +201,16 @@
             position: absolute;
             cursor: pointer;
             top: 0; left: 0; right: 0; bottom: 0;
-            background-color: #e5e5ea;
+            background-color: #d1d1d6;
             transition: .3s;
-            border-radius: 34px;
+            border-radius: 24px;
         }
 
         .slider:before {
             position: absolute;
             content: "";
-            height: 20px;
-            width: 20px;
+            height: 18px;
+            width: 18px;
             left: 3px;
             bottom: 3px;
             background-color: white;
@@ -193,11 +219,11 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
-        input:checked + .slider { background-color: #34c759; }
-        input:checked + .slider:before { transform: translateX(20px); }
+        input:checked + .slider { background-color: #ff3b30; }
+        input:checked + .slider:before { transform: translateX(18px); }
 
         /* ==========================================
-           3. SIDE MENU TRƯỢT DỌC (LEFT SIDEBAR)
+           4. SIDE MENU TRƯỢT DỌC
            ========================================== */
         .menu-overlay {
             position: fixed;
@@ -264,7 +290,7 @@
         }
 
         /* ==========================================
-           4. NỘI DUNG CHÍNH (PAGES & CARDS)
+           5. MAIN CONTENT
            ========================================== */
         main {
             flex: 1;
@@ -273,7 +299,7 @@
             margin: 0 auto;
             padding: 30px 20px 140px 20px;
             position: relative;
-            z-index: 200; /* Cao hơn layer Trung Thu để không bị che */
+            z-index: 200; /* Luôn đè lên hiệu ứng Trung Thu */
         }
 
         .page {
@@ -292,12 +318,10 @@
             text-align: center;
             margin-bottom: 24px;
             font-size: 22px;
-            letter-spacing: -0.5px;
         }
 
-        .text-red { color: #e60023; }
+        .text-red { color: #ff2d55; }
 
-        /* Gradient Chữ Admin */
         .gradient-admin {
             background: linear-gradient(135deg, #007aff, #00d2ff);
             -webkit-background-clip: text;
@@ -305,7 +329,6 @@
             font-weight: 800;
         }
 
-        /* Trang Hướng Dẫn Video */
         .video-wrapper {
             background: var(--card-bg);
             border-radius: 18px;
@@ -329,7 +352,6 @@
             top: 0; left: 0; width: 100%; height: 100%; border: 0;
         }
 
-        /* Trang Hỗ Trợ QR */
         .qr-wrapper {
             display: flex;
             justify-content: center;
@@ -349,7 +371,6 @@
             box-shadow: 0 12px 30px var(--shadow-color);
         }
 
-        /* Viền RGB Chuyển Động */
         .rgb-box::before {
             content: '';
             position: absolute;
@@ -371,13 +392,10 @@
         }
 
         .qr-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 12px;
+            width: 100%; height: 100%;
+            object-fit: cover; border-radius: 12px;
         }
 
-        /* Footer Main */
         footer {
             text-align: center;
             padding: 24px;
@@ -389,155 +407,186 @@
         }
 
         /* ==========================================
-           5. NÂNG CẤP HIỆU ỨNG TẾT TRUNG THU
-           ========================================== */
-        /* Khi bật hiệu ứng Trung Thu: Nút sẽ mang sắc đỏ lồng đèn */
+           6. HIỆU ỨNG TẾT TRUNG THU CỰC NGHỆ THUẬT
+           ========================================= */
         body.mid-autumn-mode .header-btn {
             background-color: #d32f2f !important;
-            color: #ffffff !important;
-            box-shadow: 0 0 12px rgba(211, 47, 47, 0.4);
+            box-shadow: 0 0 15px rgba(211, 47, 47, 0.5);
         }
 
-        /* Các trang trí trung thu nằm ở layer phía sau (z-index: 50) */
+        body.mid-autumn-mode .moon-icon-css {
+            box-shadow: -4px 3px 0 0px #fff !important;
+        }
+
         .mid-autumn-layer {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
             pointer-events: none;
-            z-index: 50; 
+            z-index: 50;
             overflow: hidden;
         }
 
         body.mid-autumn-mode .mid-autumn-layer { display: block; }
 
-        /* Trăng Rằm */
-        .moon {
+        /* Trăng Rằm Lớn Tỏa Hào Quang */
+        .art-moon {
             position: absolute;
-            top: 85px; right: 40px;
-            width: 70px; height: 70px;
-            background: radial-gradient(circle, #fffde7 50%, #fff59d 100%);
+            top: 75px; right: -20px;
+            width: 180px; height: 180px;
+            background: radial-gradient(circle, #fffdf0 20%, #ffe57f 60%, rgba(255, 229, 127, 0) 100%);
             border-radius: 50%;
-            box-shadow: 0 0 35px rgba(255, 245, 157, 0.8);
-            opacity: 0.9;
+            filter: drop-shadow(0 0 40px rgba(255, 215, 0, 0.6));
+            animation: moonPulse 6s ease-in-out infinite alternate;
         }
 
-        /* Cành Trúc Góc Trên */
-        .bamboo-branch {
+        @keyframes moonPulse {
+            0% { transform: scale(1); opacity: 0.85; }
+            100% { transform: scale(1.08); opacity: 1; }
+        }
+
+        /* Đèn Lồng Đỏ 3D Treo Đung Đưa */
+        .lantern-container {
             position: absolute;
-            top: 65px; left: 0;
-            width: 160px;
-            opacity: 0.85;
-        }
-
-        /* Lồng đèn góc phải */
-        .lantern-group {
-            position: absolute;
-            top: 70px; right: 120px;
-            display: flex;
-            gap: 15px;
-        }
-
-        .lantern-svg {
-            width: 45px;
-            animation: swing 3s ease-in-out infinite alternate;
+            top: 70px; right: 110px;
+            animation: lanternSwing 4s ease-in-out infinite alternate;
             transform-origin: top center;
         }
 
-        @keyframes swing {
-            0% { transform: rotate(-7deg); }
-            100% { transform: rotate(7deg); }
+        @keyframes lanternSwing {
+            0% { transform: rotate(-6deg); }
+            100% { transform: rotate(6deg); }
         }
 
-        /* Mây vuốt trôi dưới khung hình (Fixed Bottom) */
+        /* Animation Thả Đèn Trời (Sky Lanterns) Fly Up */
+        .sky-lanterns {
+            position: absolute;
+            width: 100%; height: 100%;
+            top: 0; left: 0;
+        }
+
+        .sky-lantern {
+            position: absolute;
+            bottom: -50px;
+            background: radial-gradient(circle, #ff8a80, #d32f2f);
+            border-radius: 8px 8px 12px 12px;
+            box-shadow: 0 0 12px #ff5252;
+            animation: floatUp 12s linear infinite;
+            opacity: 0.8;
+        }
+
+        .sky-lantern::after {
+            content: ''; position: absolute;
+            bottom: -4px; left: 50%; transform: translateX(-50%);
+            width: 4px; height: 4px; background: #ffe082;
+            box-shadow: 0 0 6px #ffe082;
+            border-radius: 50%;
+        }
+
+        .sky-lantern:nth-child(1) { left: 15%; width: 18px; height: 26px; animation-duration: 14s; animation-delay: 0s; }
+        .sky-lantern:nth-child(2) { left: 35%; width: 12px; height: 18px; animation-duration: 18s; animation-delay: 3s; }
+        .sky-lantern:nth-child(3) { left: 65%; width: 22px; height: 30px; animation-duration: 11s; animation-delay: 1s; }
+        .sky-lantern:nth-child(4) { left: 85%; width: 15px; height: 22px; animation-duration: 16s; animation-delay: 5s; }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-110vh) rotate(15deg); opacity: 0; }
+        }
+
+        /* Đám Mây Sóng Cố Định Dưới Chân Màn Hình */
         .fixed-bottom-clouds {
             position: fixed;
-            bottom: 0; left: 0; width: 100vw; height: 80px;
+            bottom: -10px; left: 0; width: 100vw; height: 90px;
             pointer-events: none;
-            z-index: 60; /* Dưới Main content nhưng trên nền */
+            z-index: 60;
             display: none;
         }
 
         body.mid-autumn-mode .fixed-bottom-clouds { display: block; }
 
-        .cloud-svg {
-            position: absolute;
-            bottom: -5px; width: 110%; left: -5%;
-            fill: rgba(255, 225, 225, 0.7);
-            backdrop-filter: blur(3px);
-            filter: drop-shadow(0px -4px 10px rgba(212, 0, 0, 0.15));
-            animation: cloudFloat 5s ease-in-out infinite alternate;
+        .cloud-svg-animated {
+            width: 120%;
+            margin-left: -10%;
+            fill: rgba(255, 230, 230, 0.8);
+            filter: drop-shadow(0px -6px 12px rgba(212, 0, 0, 0.15));
+            animation: waveCloud 6s ease-in-out infinite alternate;
         }
 
-        [data-theme="dark"] .cloud-svg {
-            fill: rgba(45, 15, 15, 0.75);
+        [data-theme="dark"] .cloud-svg-animated {
+            fill: rgba(40, 12, 18, 0.85);
         }
 
-        @keyframes cloudFloat {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-8px); }
+        @keyframes waveCloud {
+            0% { transform: translateY(0) scaleY(1); }
+            100% { transform: translateY(-10px) scaleY(1.05); }
         }
     </style>
 </head>
 <body>
 
-    <!-- TRANG TRÍ TẾT TRUNG THU (ĐẶT Ở LAYER PHÍA SAU) -->
+    <!-- TRANG TRÍ TẾT TRUNG THU CỰC ĐẸP (BACKGROUND LAYER) -->
     <div class="mid-autumn-layer">
-        <!-- Mặt Trăng -->
-        <div class="moon"></div>
+        <!-- Trăng rằm tỏa sáng -->
+        <div class="art-moon"></div>
 
-        <!-- Cành Trúc Góc Trái -->
-        <svg class="bamboo-branch" viewBox="0 0 100 80">
-            <path d="M0,0 Q50,20 100,50" fill="none" stroke="#2e7d32" stroke-width="3"/>
-            <path d="M30,12 Q55,5 70,0" fill="none" stroke="#2e7d32" stroke-width="2"/>
-            <!-- Lá trúc -->
-            <path d="M50,20 Q65,15 75,22 Q60,25 50,20 Z" fill="#388e3c"/>
-            <path d="M70,28 Q88,20 95,32 Q80,33 70,28 Z" fill="#1b5e20"/>
-            <path d="M30,12 Q45,2 55,8 Q42,12 30,12 Z" fill="#4caf50"/>
-        </svg>
-
-        <!-- Lồng Đèn Treo -->
-        <div class="lantern-group">
-            <svg class="lantern-svg" viewBox="0 0 100 140">
-                <line x1="50" y1="0" x2="50" y2="20" stroke="#ffd700" stroke-width="2"/>
-                <rect x="35" y="20" width="30" height="8" fill="#b71c1c" rx="2"/>
-                <ellipse cx="50" cy="65" rx="28" ry="38" fill="#d32f2f" stroke="#ffd700" stroke-width="2"/>
-                <line x1="50" y1="25" x2="50" y2="105" stroke="#ffd700" stroke-width="1.5"/>
-                <rect x="35" y="105" width="30" height="8" fill="#b71c1c" rx="2"/>
-                <line x1="50" y1="113" x2="50" y2="140" stroke="#ffd700" stroke-width="3"/>
+        <!-- Đèn lồng đỏ treo 3D -->
+        <div class="lantern-container">
+            <svg width="60" height="90" viewBox="0 0 100 150">
+                <line x1="50" y1="0" x2="50" y2="25" stroke="#ffd700" stroke-width="3"/>
+                <rect x="30" y="25" width="40" height="10" fill="#b71c1c" rx="3"/>
+                <ellipse cx="50" cy="75" rx="35" ry="45" fill="url(#lanternGrad)" stroke="#ffd700" stroke-width="2"/>
+                <rect x="30" y="115" width="40" height="10" fill="#b71c1c" rx="3"/>
+                <line x1="50" y1="125" x2="50" y2="150" stroke="#ffd700" stroke-width="4"/>
+                <defs>
+                    <radialGradient id="lanternGrad" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#ff5252"/>
+                        <stop offset="100%" stop-color="#b71c1c"/>
+                    </radialGradient>
+                </defs>
             </svg>
+        </div>
+
+        <!-- Thả Đèn Trời Fly Up -->
+        <div class="sky-lanterns">
+            <div class="sky-lantern"></div>
+            <div class="sky-lantern"></div>
+            <div class="sky-lantern"></div>
+            <div class="sky-lantern"></div>
         </div>
     </div>
 
-    <!-- MÂY TRUNG THU CỐ ĐỊNH DƯỚI MÀN HÌNH -->
+    <!-- ĐÁM MÂY DƯỚI CÙNG KHUNG HÌNH -->
     <div class="fixed-bottom-clouds">
-        <svg class="cloud-svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M0,120 L0,60 Q40,20 100,50 Q160,10 240,40 Q320,0 400,30 Q480,10 560,40 Q640,0 720,30 Q800,10 880,50 Q960,20 1040,60 Q1120,20 1200,60 L1200,120 Z"></path>
+        <svg class="cloud-svg-animated" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M0,120 L0,50 Q60,10 150,40 Q240,0 350,30 Q460,0 550,30 Q650,10 750,40 Q850,0 950,40 Q1050,10 1200,50 L1200,120 Z"></path>
         </svg>
     </div>
 
     <!-- HEADER NAVIGATION -->
     <header>
-        <!-- Nút Menu Bên Trái -->
         <button class="header-btn" id="openMenuBtn" aria-label="Menu">≡</button>
 
-        <!-- Logo Center (Phóng To) -->
         <div class="logo-container">
             <img id="mainLogo" class="logo-img" src="./logo/logo-lightmode.png" alt="Website Logo">
         </div>
 
-        <!-- Nút Mặt Trời Unicode & Popover Cài Đặt Bên Phải -->
+        <!-- Nút Mặt Trăng (Vẽ bằng CSS) + Popover -->
         <div class="settings-dropdown-wrapper">
-            <button class="header-btn" id="sunBtn" aria-label="Theme Settings">☀</button>
+            <button class="header-btn" id="moonBtn" aria-label="Mode Settings">
+                <div class="moon-icon-css"></div>
+            </button>
             
             <div class="popover-menu" id="popoverMenu">
-                <div class="setting-item">
-                    <span>Giao diện Tối</span>
-                    <label class="switch">
-                        <input type="checkbox" id="darkModeToggle">
-                        <span class="slider"></span>
-                    </label>
+                <div class="mode-option selected" id="optLight" onclick="setTheme('light')">
+                    <span>• Chế độ sáng</span>
                 </div>
-                <div class="setting-item">
+                <div class="mode-option" id="optDark" onclick="setTheme('dark')">
+                    <span>• Chế độ tối</span>
+                </div>
+                <div class="popover-divider"></div>
+                <div class="mode-option" style="cursor: default;">
                     <span>Tết Trung Thu 🥮</span>
                     <label class="switch">
                         <input type="checkbox" id="midAutumnToggle">
@@ -568,12 +617,10 @@
 
     <!-- MAIN CONTENT -->
     <main>
-        <!-- 1. TRANG CHỦ (Để trống) -->
         <section id="page-home" class="page active">
-            <!-- Bạn có thể thêm nội dung trang chủ tại đây sau -->
+            <!-- Trang chủ để trống -->
         </section>
 
-        <!-- 2. TRANG HƯỚNG DẪN -->
         <section id="page-guide" class="page">
             <h2 class="page-title">
                 <b>Hướng dẫn gửi máy bằng <span class="text-red">Viettel Post</span></b>
@@ -590,7 +637,6 @@
             </div>
         </section>
 
-        <!-- 3. TRANG HỖ TRỢ -->
         <section id="page-support" class="page">
             <h2 class="page-title">
                 Liên hệ <span class="gradient-admin">Admin</span>
@@ -615,79 +661,65 @@
         const mainLogo = document.getElementById('mainLogo');
         const menuLogo = document.getElementById('menuLogo');
         
-        // Element Controls
         const openMenuBtn = document.getElementById('openMenuBtn');
         const sideMenu = document.getElementById('sideMenu');
         const menuOverlay = document.getElementById('menuOverlay');
-        const sunBtn = document.getElementById('sunBtn');
+        const moonBtn = document.getElementById('moonBtn');
         const popoverMenu = document.getElementById('popoverMenu');
-        
-        const darkModeToggle = document.getElementById('darkModeToggle');
         const midAutumnToggle = document.getElementById('midAutumnToggle');
 
-        // 1. Xử lý Popover Menu (Nút Mặt Trời ☀)
-        sunBtn.addEventListener('click', (e) => {
+        // Popover Menu Toggle
+        moonBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             popoverMenu.classList.toggle('show');
         });
 
-        // Đóng Popover khi click ra ngoài
         document.addEventListener('click', (e) => {
-            if (!popoverMenu.contains(e.target) && e.target !== sunBtn) {
+            if (!popoverMenu.contains(e.target) && !moonBtn.contains(e.target)) {
                 popoverMenu.classList.remove('show');
             }
         });
 
-        // 2. Xử lý Side Menu (Ký tự ≡)
+        // Xử lý Chọn Mode (Chế độ sáng / Chế độ tối)
+        function setTheme(theme) {
+            htmlEl.setAttribute('data-theme', theme);
+            const isDark = theme === 'dark';
+            
+            // Cập nhật logo
+            const logoPath = isDark ? './logo/logo-darkmode.png' : './logo/logo-lightmode.png';
+            mainLogo.src = logoPath;
+            menuLogo.src = logoPath;
+
+            // Highlight Option trong Menu
+            document.getElementById('optLight').classList.toggle('selected', !isDark);
+            document.getElementById('optDark').classList.toggle('selected', isDark);
+        }
+
+        // Side Menu Handler
         function toggleSideMenu(open) {
-            if (open) {
-                sideMenu.classList.add('active');
-                menuOverlay.classList.add('active');
-            } else {
-                sideMenu.classList.remove('active');
-                menuOverlay.classList.remove('active');
-            }
+            sideMenu.classList.toggle('active', open);
+            menuOverlay.classList.toggle('active', open);
         }
 
         openMenuBtn.addEventListener('click', () => toggleSideMenu(true));
         menuOverlay.addEventListener('click', () => toggleSideMenu(false));
 
-        // 3. Chuyển Trang (Navigation)
+        // Navigation
         function switchPage(pageId) {
-            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-            document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
 
-            const targetPage = document.getElementById(`page-${pageId}`);
-            if (targetPage) {
-                targetPage.classList.add('active');
-            }
-
-            const activeIndex = pageId === 'home' ? 0 : pageId === 'guide' ? 1 : 2;
-            document.querySelectorAll('.menu-item')[activeIndex].classList.add('active');
+            document.getElementById(`page-${pageId}`).classList.add('active');
+            
+            const activeIdx = pageId === 'home' ? 0 : pageId === 'guide' ? 1 : 2;
+            document.querySelectorAll('.menu-item')[activeIdx].classList.add('active');
 
             toggleSideMenu(false);
         }
 
-        // 4. Xử lý Light / Dark Mode & Đổi Logo
-        function updateLogo(isDark) {
-            const logoPath = isDark ? './logo/logo-darkmode.png' : './logo/logo-lightmode.png';
-            mainLogo.src = logoPath;
-            menuLogo.src = logoPath;
-        }
-
-        darkModeToggle.addEventListener('change', (e) => {
-            const isDark = e.target.checked;
-            htmlEl.setAttribute('data-theme', isDark ? 'dark' : 'light');
-            updateLogo(isDark);
-        });
-
-        // 5. Xử lý Hiệu ứng Tết Trung Thu
+        // Hiệu ứng Tết Trung Thu
         midAutumnToggle.addEventListener('change', (e) => {
-            if (e.target.checked) {
-                bodyEl.classList.add('mid-autumn-mode');
-            } else {
-                bodyEl.classList.remove('mid-autumn-mode');
-            }
+            bodyEl.classList.toggle('mid-autumn-mode', e.target.checked);
         });
     </script>
 </body>
